@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  {% if title %}
+  <title>Galleria de fotos - {{title}}</title>
+  {% else %}
+    <title> Galleria de fotos </title>
+  {% endif %}
+
+</head>
+<body>
+    {% block content %} <h1>Posted on {{date|date:"l d-F Y"}}</h1> {%endblock%}
+</body>
+</html>

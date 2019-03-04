@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http  import HttpResponse,Http404
 import datetime as dt
 
@@ -11,14 +11,8 @@ def day_today(request):
     date = dt.date.today()
     # FUNCTION TO CONVERT DATE OBJECT TO FIND EXACT DAY
     day = convert_dates(date)
-    html = f'''
-        <html>
-            <body>
-                <h1> {day}: {date.day}-{date.month}-{date.year}</h1>
-            </body>
-        </html>
-            '''
-    return HttpResponse(html)
+    date = dt.date.today()
+    return render(request, 'all-pics/day-today.html', {"date": date,})
 
 def convert_dates(dates):
 
@@ -39,15 +33,12 @@ def photo_category(request,past_date):
     except ValueError:
         # Raise 404 error when ValueError is thrown
         raise Http404()
+        assert False
+
         # Converts data from the string Url
         date = dt.datetime.strptime(past_date,'%Y-%m-%d').date()
 
-    day = convert_dates(date)
-    html = f'''
-        <html>
-            <body>
-                <h1>Posted on {day} {date.day}-{date.month}-{date.year}</h1>
-            </body>
-        </html>
-            '''
-    return HttpResponse(html)
+    if date == dt.date.today():
+        return redirect(day_today)
+
+    return render(request, 'all-pics/photo-category.html', {"date": date})
