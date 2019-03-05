@@ -13,7 +13,8 @@ def day_today(request):
     # FUNCTION TO CONVERT DATE OBJECT TO FIND EXACT DAY
     day = convert_dates(date)
     date = dt.date.today()
-    return render(request, 'all-pics/day-today.html', {"date": date,})
+    news = Image.objects.all()
+    return render(request, 'all-pics/day-today.html', {"date": date, 'news':news})
 
 def convert_dates(dates):
 
@@ -47,12 +48,14 @@ def photo_category(request,past_date):
 def search_results(request):
 
     if 'image' in request.GET and request.GET["image"]:
+        print('Text')
         search_term = request.GET.get("image")
-        searched_images = Article.search_by_title(search_term)
+        searched_images = Image.search_image(search_term)
         message = f"{search_term}"
+        print(searched_images)
 
         return render(request, 'all-pics/search.html',{"message":message,"images": searched_images})
 
     else:
         message = "You haven't searched for any term"
-        return render(request, 'all-news/search.html',{"message":message})
+        return render(request, 'all-pics/search.html',{"message":message})

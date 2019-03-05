@@ -15,7 +15,7 @@ class Category(models.Model):
         return self.name
 
 class Image(models.Model):
-    image_url = models.ImageField(upload_to = "images/")
+    image_url = models.ImageField(upload_to = "today/")
     name = models.CharField(max_length = 30)
     description = models.TextField()
     location = models.ForeignKey(Location)
@@ -42,9 +42,10 @@ class Image(models.Model):
         """
         This is the method to search images based on a specific category
         """
+        print('Text')
         try:   
-            searched_category = Category.objects.filter(name__icontains  = category)[0]
-            return cls.objects.filter(category_id = searched_category.id)
+            searched_category = Image.objects.filter(category__name__icontains  = category)
+            return searched_category
         except Exception:
             return "No images found"
     @classmethod
