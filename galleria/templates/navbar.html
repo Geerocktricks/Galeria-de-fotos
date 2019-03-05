@@ -11,7 +11,7 @@ body {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 4;
   top: 0;
   left: 0;
   background-color: #111;
@@ -53,9 +53,9 @@ body {
 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="{% url 'Today' %}">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
+  <a href="{% url 'welcome' %}">Home</a>
+  <a href="{% url 'Today' %}">Gallery</a>
+  <a href="#">About</a>
   <a href="#">Contact</a>
 </div>
 
